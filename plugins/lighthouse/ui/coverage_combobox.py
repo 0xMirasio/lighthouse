@@ -399,7 +399,7 @@ class CoverageComboBoxView(QtWidgets.QTableView):
         # invalid position so table clears any remaining hover flags.
         #
 
-        event = QtGui.QHoverEvent(QtCore.QEvent.HoverLeave, QtCore.QPoint(-1,-1), QtCore.QPoint(-1,-1))
+        event = QtGui.QHoverEvent(QtCore.QEvent.HoverLeave, QtCore.QPointF(-1, -1), QtCore.QPointF(-1, -1))
         QtWidgets.QApplication.sendEvent(self.viewport(), event)
 
     #--------------------------------------------------------------------------

@@ -12,6 +12,8 @@ except ImportError:
     JSONDecodeError = ValueError
 
 from lighthouse.util.qt import *
+from lighthouse.util.qt import QtCore
+
 from lighthouse.util.log import lmsg
 from lighthouse.util.misc import *
 from lighthouse.util.disassembler import disassembler
@@ -549,7 +551,11 @@ class LighthousePalette(object):
         if disassembler.NAME == "BINJA":
             test_widget.setAttribute(QtCore.Qt.WA_DontShowOnScreen)
         else:
-            test_widget.setAttribute(103) # taken from http://doc.qt.io/qt-5/qt.html
+            try:
+                test_widget.setAttribute(QtCore.Qt.WidgetAttribute.WA_DontShowOnScreen, True)
+            except AttributeError:
+                # fallback for older bindings / shimmed Qt5-style enums
+                test_widget.setAttribute(QtCore.Qt.WA_DontShowOnScreen, True)
 
 
         # render the (invisible) widget

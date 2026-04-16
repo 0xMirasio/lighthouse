@@ -217,7 +217,7 @@ class LighthouseCore(object):
 
         # show the coverage xref dialog
         dialog = CoverageXref(lctx.director, address)
-        if not dialog.exec_():
+        if not getattr(dialog, "exec", getattr(dialog, "exec_"))():
             return
 
         # activate the user selected xref (if one was double clicked)

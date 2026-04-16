@@ -805,7 +805,8 @@ class CoverageTableModel(QtCore.QAbstractTableModel):
         self._entry_font = MonospaceFont()
         if not USING_PYSIDE6:
             #TODO Figure out if this matters?
-            self._entry_font.setStyleStrategy(QtGui.QFont.ForceIntegerMetrics)
+            if hasattr(QtGui.QFont, 'ForceIntegerMetrics'):
+                self._entry_font.setStyleStrategy(QtGui.QFont.ForceIntegerMetrics)
         self._entry_font.setPointSizeF(normalize_to_dpi(10))
 
         # use the default / system font for the column titles

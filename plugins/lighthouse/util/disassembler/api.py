@@ -164,7 +164,7 @@ class DisassemblerCoreAPI(object):
         msgbox.setLayout(layout)
 
         # show the dialog
-        msgbox.exec_()
+        getattr(msgbox, "exec", getattr(msgbox, "exec_"))()
 
     @abc.abstractmethod
     def message(self, function_address, new_name):

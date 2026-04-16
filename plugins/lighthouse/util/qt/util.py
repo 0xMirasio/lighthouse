@@ -90,9 +90,16 @@ def move_mouse_event(mouse_event, position):
     """
     Move the given mouse event to a different position.
     """
+    posf = QtCore.QPointF(position)
+    global_pos = getattr(mouse_event, "globalPosition", None)
+    if callable(global_pos):
+        gposf = mouse_event.globalPosition()
+    else:
+        gposf = posf
     new_event = QtGui.QMouseEvent(
         mouse_event.type(),
-        position,
+        posf,
+        gposf,
         mouse_event.button(),
         mouse_event.buttons(),
         mouse_event.modifiers()
@@ -127,7 +134,7 @@ def prompt_string(label, title, default=""):
     dlg.setModal(True)
     dlg.show()
     dlg.setFocus(QtCore.Qt.PopupFocusReason)
-    ok = dlg.exec_()
+    ok = getattr(dlg, "exec", getattr(dlg, "exec_"))()
     text = str(dlg.textValue())
     return (ok, text)
 

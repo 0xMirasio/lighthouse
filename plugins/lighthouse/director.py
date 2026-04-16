@@ -560,7 +560,7 @@ class CoverageDirector(object):
             #
 
             dialog = ModuleSelector(database_target, coverage_file.modules, coverage_file.filepath)
-            result = dialog.exec_()
+            result = getattr(dialog, "exec", getattr(dialog, "exec_"))()
 
             # check if the user opted to ignore future warnings for missing coverage
             if dialog.ignore_missing:
